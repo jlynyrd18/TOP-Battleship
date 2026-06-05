@@ -6,7 +6,7 @@ export default class Ship {
     }
 
     hit() {
-        hits = hits + 1;
-        return hits;
+        this.hits = this.hits + 1;
+        return this.hits;
     }
 }
