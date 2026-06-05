@@ -7,6 +7,13 @@ export default class Ship {
 
     hit() {
         this.hits = this.hits + 1;
+        if(this.hits >= this.shipLength){
+            this.sunk();
+        }
         return this.hits;
+    }
+
+    sunk() {
+        this.isSunk = true;
     }
 }
