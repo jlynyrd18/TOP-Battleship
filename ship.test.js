@@ -17,7 +17,10 @@ test('ship takes a hit and hit goes up by 1', () => {
 })
 
 test('ship takes enough hits to sink', () => {
-    expect(boat.hit()).toBe(boat.isSunk);
+    expect(boat2.isSunk).toBe(true);
 })
 
 const boat = new Ship(2);
+const boat2 = new Ship(2);
+boat2.hit();
+boat2.hit();
