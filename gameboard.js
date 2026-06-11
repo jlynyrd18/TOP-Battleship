@@ -7,7 +7,7 @@ export default class Gameboard {
         this.ships.push(boat);
     }
 
-    placeShip(boat, x, y) {
-        this.ships.push({ship: boat, position: [x,y]});
+    placeShip(boat, x, y, direction) {
+        this.ships.push({ship: boat, position: [x,y], direction: direction});
     }
 }
