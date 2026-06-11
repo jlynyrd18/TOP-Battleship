@@ -17,8 +17,13 @@ test('Verify ship is ready to place', () => {
 
 const board3 = new Gameboard();
 const boat2 = new Ship(2);
-board3.placeShip(boat2, 0,0);
+board3.placeShip(boat2, 0,0, 'horizontal');
 
 test('Ship can be placed on board', () => {
     expect(board3.ships[0].position).toEqual([0,0]);
 })
+
+test('Ship is placed horizontal', () => {
+    expect(board3.ships[0].direction).toEqual('horizontal');
+})
+
