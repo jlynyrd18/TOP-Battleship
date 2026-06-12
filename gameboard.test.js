@@ -15,15 +15,22 @@ test('Verify ship is ready to place', () => {
     expect(board2.ships.length).toBe(1);
 })
 
-const board3 = new Gameboard();
-const boat2 = new Ship(2);
-board3.placeShip(boat2, 0,0, 'horizontal');
+// const board3 = new Gameboard();
+// const boat2 = new Ship(2);
+// board3.placeShip(boat2, 0,0);
 
-test('Ship can be placed on board', () => {
-    expect(board3.ships[0].position).toEqual([0,0]);
-})
+// test('Ship can be placed on board', () => {
+//     expect(board3.ships[0].position).toEqual([0,0]);
+// })
+
+const board4 = new Gameboard();
+const boat3 = new Ship(2);
+board4.placeShip(boat3, 0,0, 'horizontal');
 
 test('Ship is placed horizontal', () => {
-    expect(board3.ships[0].direction).toEqual('horizontal');
+    expect(board4.ships[0].direction).toEqual('horizontal');
 })
 
+test('Position should have all spots ship occupies', () => {
+    expect(board4.ships[0].position).toEqual([[0,0],[1,0]]);
+})
