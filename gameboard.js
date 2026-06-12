@@ -17,6 +17,15 @@ export default class Gameboard {
                 occupiedSpots.push(newPoint);
             }
             this.ships.push({ship: boat, position: occupiedSpots, direction: direction});
+        }else if(direction === 'vertical') {
+            let starting = [x,y];
+            let occupiedSpots = [];
+    
+            for(let i = 0; i < boat.shipLength; i++) {
+                let newPoint = [x, y + i];
+                occupiedSpots.push(newPoint);
+            }
+            this.ships.push({ship: boat, position: occupiedSpots, direction: direction});
         }
     }
 }
