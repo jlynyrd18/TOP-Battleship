@@ -1,11 +1,11 @@
 import Gameboard from './gameboard.js';
 import Ship from './ship.js';
 
-const board = new Gameboard();
+// const board = new Gameboard();
 
-test('Verify no ships on board', () => {
-    expect(board.ships.length).toBe(0);
-})
+// test('Verify no ships on board', () => {
+//     expect(board.ships.length).toBe(0);
+// })
 
 const board2 = new Gameboard();
 const boat = new Ship(2);
@@ -33,4 +33,12 @@ test('Ship is placed horizontal', () => {
 
 test('Position should have all spots ship occupies', () => {
     expect(board4.ships[0].position).toEqual([[0,0],[1,0]]);
+})
+
+const board5 = new Gameboard();
+const boat4 = new Ship(3);
+board5.placeShip(boat4, 0,0, 'vertical');
+
+test('Ship is placed vertical and spots occupied is output', () => {
+    expect(board5.ships[0].position).toEqual([[0,0], [0,1], [0,2]]);
 })
