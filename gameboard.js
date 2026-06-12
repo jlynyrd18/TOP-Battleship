@@ -8,6 +8,8 @@ export default class Gameboard {
     }
 
     placeShip(boat, x, y, direction) {
+        if(boat.shipLength + x - 1 > 9)return false;
+        if(boat.shipLength + y - 1 > 9)return false;
         if(direction === 'horizontal') {
             let starting = [x,y];
             let occupiedSpots = [];
