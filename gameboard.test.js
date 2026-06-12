@@ -42,3 +42,11 @@ board5.placeShip(boat4, 0,0, 'vertical');
 test('Ship is placed vertical and spots occupied is output', () => {
     expect(board5.ships[0].position).toEqual([[0,0], [0,1], [0,2]]);
 })
+
+const board6 = new Gameboard();
+const boat5 = new Ship(3);
+board6.placeShip(boat5, 8,1, 'horizontal');
+
+test('Ship extends beyond board and should be rejected', () => {
+    expect(board6.ships.length).toBe(0);
+})
