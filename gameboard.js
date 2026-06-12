@@ -8,6 +8,15 @@ export default class Gameboard {
     }
 
     placeShip(boat, x, y, direction) {
-        this.ships.push({ship: boat, position: [x,y], direction: direction});
+        if(direction === 'horizontal') {
+            let starting = [x,y];
+            let occupiedSpots = [];
+    
+            for(let i = 0; i < boat.shipLength; i++) {
+                let newPoint = [x + i, y];
+                occupiedSpots.push(newPoint);
+            }
+            this.ships.push({ship: boat, position: occupiedSpots, direction: direction});
+        }
     }
 }
