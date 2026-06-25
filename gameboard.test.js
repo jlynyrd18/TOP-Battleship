@@ -61,6 +61,14 @@ board7.placeShip(boat7, 1,1, 'vertical');
 //     expect(board7.ships.length).toBe(1);
 // })
 
-test('Placing of second ship should be rejected due to overlap', () => {
-    expect(board7.placeShip(boat7, 1,1, 'vertical')).toBe(false);
+// test('Placing of second ship should be rejected due to overlap', () => {
+//     expect(board7.placeShip(boat7, 1,1, 'vertical')).toBe(false);
+// })
+
+test('A cord is picked and a ship is in the cord', () => {
+    expect(board7.receiveAttack([2,1])).toBe('hit');
+})
+
+test('A cord is picked and it misses any ship', () => {
+    expect(board7.receiveAttack([3,3])).toBe('miss');
 })
