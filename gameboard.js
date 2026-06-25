@@ -46,8 +46,15 @@ export default class Gameboard {
         }
     }
 
-    receiveAttack() {
+    receiveAttack(attack) {
         //takes a pair of coordinates, determines whether or not the attack hit a ship and then sends the ‘hit’ function to the correct ship, 
         // or records the coordinates of the missed shot.
+        const fireCheck = (element) => element[0] === attack[0] && element[1] === attack[1];
+        for(let i = 0; i < this.ships.length; i++) {
+            if(this.ships[i].position.some(fireCheck)){
+                return 'hit';
+            }
+        }
+        return 'miss';
     }
 }
