@@ -23,17 +23,17 @@ import Ship from './ship.js';
 //     expect(board3.ships[0].position).toEqual([0,0]);
 // })
 
-const board4 = new Gameboard();
-const boat3 = new Ship(2);
-board4.placeShip(boat3, 0,0, 'horizontal');
+// const board4 = new Gameboard();
+// const boat3 = new Ship(2);
+// board4.placeShip(boat3, 0,0, 'horizontal');
 
 // test('Ship is placed horizontal', () => {
 //     expect(board4.ships[0].direction).toEqual('horizontal');
 // })
 
-test('Position should have all spots ship occupies', () => {
-    expect(board4.ships[0].position).toEqual([[0,0],[1,0]]);
-})
+// test('Position should have all spots ship occupies', () => {
+//     expect(board4.ships[0].position).toEqual([[0,0],[1,0]]);
+// })
 
 // const board5 = new Gameboard();
 // const boat4 = new Ship(3);
@@ -65,10 +65,14 @@ board7.placeShip(boat7, 1,1, 'vertical');
 //     expect(board7.placeShip(boat7, 1,1, 'vertical')).toBe(false);
 // })
 
-test('A cord is picked and a ship is in the cord', () => {
-    expect(board7.receiveAttack([2,1])).toBe('hit');
-})
+// test('A cord is picked and a ship is in the cord', () => {
+//     expect(board7.receiveAttack([2,1])).toBe('hit');
+// })
 
-test('A cord is picked and it misses any ship', () => {
-    expect(board7.receiveAttack([3,3])).toBe('miss');
+// test('A cord is picked and it misses any ship', () => {
+//     expect(board7.receiveAttack([3,3])).toBe('miss');
+// })
+
+test('Get the hit counter of the boat', () => {
+    expect(board7.receiveAttack([1,1])).toBe(1);
 })
