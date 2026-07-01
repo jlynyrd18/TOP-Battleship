@@ -22,7 +22,6 @@ export default class Gameboard {
                 if(this.overLapCheck(newPoint) === false) return false;
             }
             this.ships.push({ship: boat, position: occupiedSpots, direction: direction});
-            console.log(this.ships[0].position);
         }else if(direction === 'vertical') {
             let starting = [x,y];
             let occupiedSpots = [];
@@ -33,7 +32,6 @@ export default class Gameboard {
                 if(this.overLapCheck(newPoint) === false) return false;
             }
             this.ships.push({ship: boat, position: occupiedSpots, direction: direction});
-            console.log(this.ships[0].position);
         }
     }
 
@@ -52,6 +50,12 @@ export default class Gameboard {
         const fireCheck = (element) => element[0] === attack[0] && element[1] === attack[1];
         for(let i = 0; i < this.ships.length; i++) {
             if(this.ships[i].position.some(fireCheck)){
+                //find the ship that owns the attack position
+                for(let j = 0; j < this.ships.length; j++) {
+                    this.ships[j].position.find(fireCheck);
+                    hit(this.ships[j]);
+                    return this.ships[j].ship.hits;
+                }
                 return 'hit';
             }
         }
