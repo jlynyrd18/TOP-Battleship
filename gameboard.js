@@ -53,7 +53,7 @@ export default class Gameboard {
                 //find the ship that owns the attack position
                 for(let j = 0; j < this.ships.length; j++) {
                     this.ships[j].position.find(fireCheck);
-                    hit(this.ships[j]);
+                    this.ships[j].ship.hit();
                     return this.ships[j].ship.hits;
                 }
                 return 'hit';
