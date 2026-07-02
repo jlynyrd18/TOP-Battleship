@@ -73,6 +73,10 @@ board7.placeShip(boat7, 1,1, 'vertical');
 //     expect(board7.receiveAttack([3,3])).toBe('miss');
 // })
 
-test('Get the hit counter of the boat', () => {
-    expect(board7.receiveAttack([1,1])).toBe(1);
+// test('Get the hit counter of the boat', () => {
+//     expect(board7.receiveAttack([1,1])).toBe(1);
+// })
+
+test('Missed shot is stored in array', () => {
+    expect(board7.receiveAttack([3,3])).toEqual([[3,3]]);
 })
