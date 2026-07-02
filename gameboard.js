@@ -56,7 +56,6 @@ export default class Gameboard {
                     this.ships[j].ship.hit();
                     return this.ships[j].ship.hits;
                 }
-                return 'hit';
             }
         }
         return 'miss';
