@@ -1,6 +1,7 @@
 export default class Gameboard {
     constructor() {
         this.ships = [];
+        this.missedShots = [];
     }
 
     storeShip(boat) {
@@ -51,13 +52,12 @@ export default class Gameboard {
         for(let i = 0; i < this.ships.length; i++) {
             if(this.ships[i].position.some(fireCheck)){
                 //find the ship that owns the attack position
-                for(let j = 0; j < this.ships.length; j++) {
-                    this.ships[j].position.find(fireCheck);
-                    this.ships[j].ship.hit();
-                    return this.ships[j].ship.hits;
-                }
+                this.ships[i].position.find(fireCheck);
+                this.ships[i].ship.hit();
+                return this.ships[i].ship.hits;
             }
         }
-        return 'miss';
+        this.missedShots.push(attack);
+        return this.missedShots;
     }
 }
