@@ -55,7 +55,9 @@ const board7 = new Gameboard();
 const boat6 = new Ship(3);
 const boat7 = new Ship(4);
 board7.placeShip(boat6, 1,1, 'horizontal');
-board7.placeShip(boat7, 1,1, 'vertical');
+board7.receiveAttack([2,1]);
+board7.receiveAttack([3,1]);
+board7.receiveAttack([1,1]);
 
 // test('First ship should be placed that can not be overlapped', () => {
 //     expect(board7.ships.length).toBe(1);
@@ -77,6 +79,10 @@ board7.placeShip(boat7, 1,1, 'vertical');
 //     expect(board7.receiveAttack([1,1])).toBe(1);
 // })
 
-test('Missed shot is stored in array', () => {
-    expect(board7.receiveAttack([3,3])).toEqual([[3,3]]);
+// test('Missed shot is stored in array', () => {
+//     expect(board7.receiveAttack([3,3])).toEqual([[3,3]]);
+// })
+
+test('All ships are sunk', () => {
+    expect(board7.allSunk()).toEqual(true);
 })
