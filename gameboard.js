@@ -54,10 +54,15 @@ export default class Gameboard {
                 //find the ship that owns the attack position
                 this.ships[i].position.find(fireCheck);
                 this.ships[i].ship.hit();
-                return this.ships[i].ship.hits;
             }
         }
         this.missedShots.push(attack);
         return this.missedShots;
+    }
+
+    allSunk() {
+        const checkSunk = (element) => element.ship.isSunk === true;
+        const allSunk = this.ships.every(checkSunk);
+        if(allSunk === true) return true;
     }
 }
