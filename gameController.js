@@ -1,6 +1,6 @@
-import Gameboard from './gameboard.js';
-import Ship from './ship.js';
-import Player from './player.js';
+import Gameboard from './game/gameboard.js';
+import Ship from './game/ship.js';
+import Player from './game/player.js';
 
 //Player objects
 const leonard = new Player('Leonard', 'human');
@@ -30,7 +30,6 @@ console.log(leonard.gameBoard);
 console.log(computer.gameBoard);
 
 const start = document.getElementById('start');
-start.addEventListener('click', startGame);
 
 function startGame() {
     renderBoard();
@@ -41,7 +40,22 @@ function startGame() {
         for(let j = 1; j < 11; j++) {
             let square = document.createElement('div');
             square.innerText = [i,j]; 
+            square.className = 'square';
+            // square.addEventListener('click', leonard.gameBoard.receiveAttack);
             playerboard.append(square);
         }
     }
+    for(let i = 1; i < 11; i++) {
+        for(let j = 1; j < 11; j++) {
+            let square = document.createElement('div');
+            square.className = 'square';
+            square.innerText = [i,j]; 
+            square.addEventListener('click', () => {
+                computer.gameBoard.receiveAttack([i,j]);
+            });
+            computerboard.append(square);
+        }
+    }
 }
+
+start.addEventListener('click', startGame);
