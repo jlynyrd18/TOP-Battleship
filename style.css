@@ -1,5 +1,0 @@
-.gameboard{
-    display: grid;
-    background-color: grey;
-    grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
-}
