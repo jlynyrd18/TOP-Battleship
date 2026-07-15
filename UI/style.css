@@ -24,6 +24,11 @@ h2 {
     text-align: center;
     width: 45px;
     height: 45px;
+    background-color: dodgerBlue;
+}
+
+.ship {
+    background-color: grey;
 }
 
 #shots {
