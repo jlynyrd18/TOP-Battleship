@@ -2,6 +2,7 @@ import Gameboard from './game/gameboard.js';
 import Ship from './game/ship.js';
 import Player from './game/player.js';
 import {renderBoard} from './UI/render.js';
+import {renderMissedShots} from './UI/render.js';
 
 //Player objects
 const leonard = new Player('Leonard', 'human');
@@ -27,18 +28,20 @@ computer.gameBoard.placeShip(cruiser, 7,1, 'horizontal');
 computer.gameBoard.placeShip(submarine, 1,6, 'horizontal');
 computer.gameBoard.placeShip(destroyer, 8,8, 'vertical');
 
-console.log(leonard.gameBoard);
-console.log(computer.gameBoard);
+// console.log(leonard.gameBoard);
+// console.log(computer.gameBoard);
 
 const start = document.getElementById('start');
 const compBoard = document.getElementById('computerboard');
 
 function startGame() {
-    renderBoard(squareAttacked);
-}
+    renderBoard(leonard.gameBoard, playerboard, null);
+    renderBoard(computer.gameBoard, computerboard, squareAttacked);
+}    
 
 function squareAttacked([i,j]) {
     computer.gameBoard.receiveAttack([i,j]);
+    renderMissedShots([i,j]);
 }
 
 start.addEventListener('click', startGame);
