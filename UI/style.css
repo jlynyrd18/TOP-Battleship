@@ -6,6 +6,12 @@ h2 {
     text-align: center;
 }
 
+.playerName {
+    display: grid;
+    grid-template-columns: 40% 40% 20%;
+   justify-items: center;
+}
+
 .table {
     display: grid;
     grid-template-columns: 40% 40% 20%;
@@ -25,13 +31,28 @@ h2 {
     width: 45px;
     height: 45px;
     background-color: dodgerBlue;
+    font-size: 0;
 }
 
 .ship {
     background-color: grey;
 }
 
+.true {
+    background-color: dodgerBlue;
+}
+
+.hit {
+    background-color: red;
+}
+
+.miss {
+    background-color: white;
+}
+
 #shots {
     text-align: center;
-    text-decoration: underline;
+    overflow: auto;
+    position: static;
+    height: 475px;
 }
