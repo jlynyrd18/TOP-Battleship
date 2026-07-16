@@ -3,6 +3,7 @@ import Ship from './game/ship.js';
 import Player from './game/player.js';
 import {renderBoard} from './UI/render.js';
 import {renderMissedShots} from './UI/render.js';
+import {hitMiss} from './UI/render.js';
 
 //Player objects
 const leonard = new Player('Leonard', 'human');
@@ -28,20 +29,32 @@ computer.gameBoard.placeShip(cruiser, 7,1, 'horizontal');
 computer.gameBoard.placeShip(submarine, 1,6, 'horizontal');
 computer.gameBoard.placeShip(destroyer, 8,8, 'vertical');
 
-// console.log(leonard.gameBoard);
-// console.log(computer.gameBoard);
-
 const start = document.getElementById('start');
-const compBoard = document.getElementById('computerboard');
 
 function startGame() {
-    renderBoard(leonard.gameBoard, playerboard, null);
-    renderBoard(computer.gameBoard, computerboard, squareAttacked);
+    renderBoard(leonard.gameBoard, playerboard, null, false);
+    renderBoard(computer.gameBoard, computerboard, squareAttacked, true);
 }    
 
-function squareAttacked([i,j]) {
-    computer.gameBoard.receiveAttack([i,j]);
+function squareAttacked([i,j], square) {
+    let sameShot = isDuplicateAttacks([i,j]);
+    if(sameShot === true) return;
+    let shipHitMiss = computer.gameBoard.receiveAttack([i,j]);
     renderMissedShots([i,j]);
+    hitMiss(shipHitMiss, [i,j], square);
+}
+
+let playerShots = [];
+let computerShots = [];
+
+function isDuplicateAttacks(x) {
+    const shotCheck = (element) => element[0] === x[0] && element[1] === x[1];
+    if(playerShots.some(shotCheck)) {
+        console.log('Try Again');
+        return true;
+    }else {
+        playerShots.push(x);
+    }
 }
 
 start.addEventListener('click', startGame);
