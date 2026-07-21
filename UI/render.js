@@ -2,6 +2,7 @@ const shotBoard = document.getElementById('shots');
 const gameBoards = document.getElementsByClassName('gameboard');
 const playerboard = document.getElementById('playerboard');
 const computerboard = document.getElementById('computerboard');
+const turncounter = document.getElementById('turncounter');
 
 
 export function renderMissedShots([i,j]) {
@@ -53,5 +54,7 @@ export function hitMiss(x, y, square) {
     }
 }
 
-
-//player currently can click his own board and shouldn't be able to
+//win conditions, when either player has all their ships sunk, player should be presented with a win lose popup
+export function winlose() {
+    turncounter.innerText = 'You win computer looses';
+}
