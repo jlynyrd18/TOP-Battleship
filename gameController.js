@@ -5,6 +5,7 @@ import {renderBoard} from './UI/render.js';
 import {renderMissedShots} from './UI/render.js';
 import {hitMiss} from './UI/render.js';
 import {winlose} from './UI/render.js';
+import {turnRender} from './UI/render.js';
 
 //Player objects
 const leonard = new Player('Leonard', 'human');
