@@ -11,7 +11,7 @@ export function renderMissedShots([i,j]) {
     shotBoard.append(shot);
 }
 
-export function renderBoard(x, y, z, w) {
+export function renderBoard(x, y, w, z) {
     for(let i = 1; i < 11; i++) {
         for(let j = 1; j < 11; j++) {
             let square = document.createElement('div');
@@ -57,4 +57,14 @@ export function hitMiss(x, y, square) {
 //win conditions, when either player has all their ships sunk, player should be presented with a win lose popup
 export function winlose() {
     turncounter.innerText = 'You win computer looses';
+}
+
+//display for whose turn it is
+export function turnRender(x) {
+    if(x === 1) {
+        turncounter.innerText = 'Players Turn';
+    }
+    if(x === 2) {
+        turncounter.innerText = 'Computers Turn';
+    }
 }
