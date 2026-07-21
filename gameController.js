@@ -37,8 +37,9 @@ let turn = 1;
 const start = document.getElementById('start');
 
 function startGame() {
-    renderBoard(leonard.gameBoard, playerboard, null, false);
-    renderBoard(computer.gameBoard, computerboard, squareAttacked, true);
+    renderBoard(leonard.gameBoard, playerboard, false, turnTracker);
+    renderBoard(computer.gameBoard, computerboard, true, turnTracker);
+    turnTracker;
 }    
 
 function squareAttacked([i,j], square) {
@@ -64,6 +65,20 @@ function isDuplicateAttacks(x) {
         return true;
     }else {
         playerShots.push(x);
+    }
+}
+
+//turn tracker function
+function turnTracker (x, y) {
+    //what the player can and can't do during their turn
+    if(turn === 1) {
+        squareAttacked(x, y);
+        turn++;
+    }
+    //what the player can and can't do not during their turn
+    if(turn === 2) {
+        console.log('Ai Attacks');
+        turn--;
     }
 }
 
