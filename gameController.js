@@ -4,6 +4,7 @@ import Player from './game/player.js';
 import {renderBoard} from './UI/render.js';
 import {renderMissedShots} from './UI/render.js';
 import {hitMiss} from './UI/render.js';
+import {winlose} from './UI/render.js';
 
 //Player objects
 const leonard = new Player('Leonard', 'human');
@@ -29,6 +30,10 @@ computer.gameBoard.placeShip(cruiser, 7,1, 'horizontal');
 computer.gameBoard.placeShip(submarine, 1,6, 'horizontal');
 computer.gameBoard.placeShip(destroyer, 8,8, 'vertical');
 
+//turn and game over tracker
+let gameover = false;
+let turn = 1;
+
 const start = document.getElementById('start');
 
 function startGame() {
@@ -37,11 +42,16 @@ function startGame() {
 }    
 
 function squareAttacked([i,j], square) {
+    if(gameover) return;
     let sameShot = isDuplicateAttacks([i,j]);
     if(sameShot === true) return;
     let shipHitMiss = computer.gameBoard.receiveAttack([i,j]);
     renderMissedShots([i,j]);
     hitMiss(shipHitMiss, [i,j], square);
+    if(computer.gameBoard.allSunk()){
+        winlose();
+        gameover = true;
+    }
 }
 
 let playerShots = [];
