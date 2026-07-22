@@ -59,12 +59,3 @@ export function winlose() {
     turncounter.innerText = 'You win computer looses';
 }
 
-//display for whose turn it is
-export function turnRender(x) {
-    if(x === 1) {
-        turncounter.innerText = 'Players Turn';
-    }
-    if(x === 2) {
-        turncounter.innerText = 'Computers Turn';
-    }
-}
