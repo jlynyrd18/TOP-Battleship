@@ -5,7 +5,7 @@ import {renderBoard} from './UI/render.js';
 import {renderMissedShots} from './UI/render.js';
 import {hitMiss} from './UI/render.js';
 import {winlose} from './UI/render.js';
-import {turnRender} from './UI/render.js';
+import {aiCoords} from './computerTurn.js';
 
 //Player objects
 const leonard = new Player('Leonard', 'human');
@@ -38,9 +38,9 @@ let turn = 1;
 const start = document.getElementById('start');
 
 function startGame() {
+    //if board already rendered replace board
     renderBoard(leonard.gameBoard, playerboard, false, turnTracker);
     renderBoard(computer.gameBoard, computerboard, true, turnTracker);
-    turnTracker;
 }    
 
 function squareAttacked([i,j], square) {
@@ -57,7 +57,6 @@ function squareAttacked([i,j], square) {
 }
 
 let playerShots = [];
-let computerShots = [];
 
 function isDuplicateAttacks(x) {
     const shotCheck = (element) => element[0] === x[0] && element[1] === x[1];
@@ -78,9 +77,11 @@ function turnTracker (x, y) {
     }
     //what the player can and can't do not during their turn
     if(turn === 2) {
-        console.log('Ai Attacks');
+        let computerCoords = aiCoords();
+        
         turn--;
     }
+    
 }
 
 start.addEventListener('click', startGame);
