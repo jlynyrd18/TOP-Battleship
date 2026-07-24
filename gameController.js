@@ -33,27 +33,36 @@ computer.gameBoard.placeShip(destroyer, 8,8, 'vertical');
 
 //turn and game over tracker
 let gameover = false;
-let turn = 1;
+let turn = 'player';
 
 const start = document.getElementById('start');
+let shotBoard = document.getElementById('shots');
 
 function startGame() {
     //if board already rendered replace board
+    gameover = false;
+    playerboard.innerHTML = '';
+    computerboard.innerHTML = '';
+    playerShots = [];
+    shotBoard.innerHTML = '';
     renderBoard(leonard.gameBoard, playerboard, false, turnTracker);
     renderBoard(computer.gameBoard, computerboard, true, turnTracker);
 }    
 
-function squareAttacked([i,j], square) {
+function squareAttacked([i,j]) {
     if(gameover) return;
-    let sameShot = isDuplicateAttacks([i,j]);
-    if(sameShot === true) return;
-    let shipHitMiss = computer.gameBoard.receiveAttack([i,j]);
-    renderMissedShots([i,j]);
-    hitMiss(shipHitMiss, [i,j], square);
+    if(turn === 'player') {
+        let sameShot = isDuplicateAttacks([i,j]);
+        if(sameShot === true) return;
+    }
+    computer.gameBoard.receiveAttack([i,j]);
+    renderMissedShots([i,j], turn);
+    hitMiss([i,j], turn);
     if(computer.gameBoard.allSunk()){
         winlose();
         gameover = true;
     }
+    
 }
 
 let playerShots = [];
@@ -61,7 +70,8 @@ let playerShots = [];
 function isDuplicateAttacks(x) {
     const shotCheck = (element) => element[0] === x[0] && element[1] === x[1];
     if(playerShots.some(shotCheck)) {
-        console.log('Try Again');
+        alert('Try a different square');
+        turn = 'player';
         return true;
     }else {
         playerShots.push(x);
@@ -71,15 +81,15 @@ function isDuplicateAttacks(x) {
 //turn tracker function
 function turnTracker (x, y) {
     //what the player can and can't do during their turn
-    if(turn === 1) {
+    if(turn === 'player') {
         squareAttacked(x, y);
-        turn++;
+        turn = 'computerPlayer';
     }
     //what the player can and can't do not during their turn
-    if(turn === 2) {
+    if(turn === 'computerPlayer') {
         let computerCoords = aiCoords();
-        
-        turn--;
+        squareAttacked(computerCoords);
+        turn = 'player';
     }
     
 }
