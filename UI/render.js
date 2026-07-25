@@ -73,7 +73,13 @@ export function hitMiss(x, y) {
 }
 
 //win conditions, when either player has all their ships sunk, player should be presented with a win lose popup
-export function winlose() {
-    turncounter.innerText = 'You win computer looses';
+export function winlose(x) {
+    if(x === 'Computer') {
+        turncounter.innerText = `${x} wins`;
+    }else if(x === 'Player'){
+        turncounter.innerText = `${x} wins`;
+    }else{
+        turncounter.innerText = 'Draw';
+    }
 }
 
