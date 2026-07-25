@@ -6,17 +6,25 @@ import {renderMissedShots} from './UI/render.js';
 import {hitMiss} from './UI/render.js';
 import {winlose} from './UI/render.js';
 import {aiCoords} from './computerTurn.js';
+import {resetAiCoords} from './computerTurn.js';
 
 //Player objects
 const leonard = new Player('Leonard', 'human');
 const computer = new Player('Computer', 'computer');
 
-//4 ships to be placed on the board
+//5 ships for player board
 const carrier = new Ship(5);
 const battleship = new Ship(4);
 const cruiser = new Ship(3);
 const submarine = new Ship(3);
 const destroyer = new Ship(2);
+
+//5 ships for computer board
+const carrier2 = new Ship(5);
+const battleship2 = new Ship(4);
+const cruiser2 = new Ship(3);
+const submarine2 = new Ship(3);
+const destroyer2 = new Ship(2);
 
 //coords for the ships 
 leonard.gameBoard.placeShip(carrier, 1,1, 'vertical');
@@ -25,15 +33,16 @@ leonard.gameBoard.placeShip(cruiser, 7,1, 'horizontal');
 leonard.gameBoard.placeShip(submarine, 1,6, 'horizontal');
 leonard.gameBoard.placeShip(destroyer, 8,8, 'vertical');
 
-computer.gameBoard.placeShip(carrier, 1,1, 'vertical');
-computer.gameBoard.placeShip(battleship, 4,4, 'vertical');
-computer.gameBoard.placeShip(cruiser, 7,1, 'horizontal');
-computer.gameBoard.placeShip(submarine, 1,6, 'horizontal');
-computer.gameBoard.placeShip(destroyer, 8,8, 'vertical');
+computer.gameBoard.placeShip(carrier2, 1,1, 'vertical');
+computer.gameBoard.placeShip(battleship2, 4,4, 'vertical');
+computer.gameBoard.placeShip(cruiser2, 7,1, 'horizontal');
+computer.gameBoard.placeShip(submarine2, 1,6, 'horizontal');
+computer.gameBoard.placeShip(destroyer2, 8,8, 'vertical');
 
 //turn and game over tracker
 let gameover = false;
 let turn = 'player';
+let playerShots = [];
 
 const start = document.getElementById('start');
 let shotBoard = document.getElementById('shots');
@@ -41,15 +50,18 @@ let shotBoard = document.getElementById('shots');
 function startGame() {
     //if board already rendered replace board
     gameover = false;
+    turn = 'player';
     playerboard.innerHTML = '';
     computerboard.innerHTML = '';
     playerShots = [];
+    resetAiCoords();
     shotBoard.innerHTML = '';
     renderBoard(leonard.gameBoard, playerboard, false, turnTracker);
     renderBoard(computer.gameBoard, computerboard, true, turnTracker);
 }    
 
 function squareAttacked([i,j]) {
+    console.log(gameover, turn);
     if(gameover) return;
     if(turn === 'player') {
         let sameShot = isDuplicateAttacks([i,j]);
@@ -59,13 +71,14 @@ function squareAttacked([i,j]) {
     renderMissedShots([i,j], turn);
     hitMiss([i,j], turn);
     if(computer.gameBoard.allSunk()){
-        winlose();
+        winlose('Player');
         gameover = true;
     }
-    
+    if(leonard.gameBoard.allSunk()) {
+        winlose('Computer');
+        gameover = true;
+    }
 }
-
-let playerShots = [];
 
 function isDuplicateAttacks(x) {
     const shotCheck = (element) => element[0] === x[0] && element[1] === x[1];
