@@ -12,3 +12,7 @@ export function aiCoords () {
         return coord;
     }
 }
+
+export function resetAiCoords() {
+    aiShots = [];
+}
