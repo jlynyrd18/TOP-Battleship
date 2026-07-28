@@ -6,38 +6,55 @@ import {renderMissedShots} from './UI/render.js';
 import {hitMiss} from './UI/render.js';
 import {winlose} from './UI/render.js';
 import {aiCoords} from './computerTurn.js';
-import {resetAiCoords} from './computerTurn.js';
+import {clearAiShots} from './computerTurn.js';
 
 //Player objects
 const leonard = new Player('Leonard', 'human');
 const computer = new Player('Computer', 'computer');
 
 //5 ships for player board
-const carrier = new Ship(5);
-const battleship = new Ship(4);
-const cruiser = new Ship(3);
-const submarine = new Ship(3);
-const destroyer = new Ship(2);
+function createPlayerShips() {
+    const carrier = new Ship(5);
+    const battleship = new Ship(4);
+    const cruiser = new Ship(3);
+    const submarine = new Ship(3);
+    const destroyer = new Ship(2);
+
+}
 
 //5 ships for computer board
-const carrier2 = new Ship(5);
-const battleship2 = new Ship(4);
-const cruiser2 = new Ship(3);
-const submarine2 = new Ship(3);
-const destroyer2 = new Ship(2);
+function createAiShips() {
+    const carrier2 = new Ship(5);
+    const battleship2 = new Ship(4);
+    const cruiser2 = new Ship(3);
+    const submarine2 = new Ship(3);
+    const destroyer2 = new Ship(2);
+    return [carrier2, battleship2, cruiser2, submarine2, destroyer2];
+}
+
 
 //coords for the ships 
-leonard.gameBoard.placeShip(carrier, 1,1, 'vertical');
-leonard.gameBoard.placeShip(battleship, 4,4, 'vertical');
-leonard.gameBoard.placeShip(cruiser, 7,1, 'horizontal');
-leonard.gameBoard.placeShip(submarine, 1,6, 'horizontal');
-leonard.gameBoard.placeShip(destroyer, 8,8, 'vertical');
+// leonard.gameBoard.placeShip(carrier, 1,1, 'vertical');
+// leonard.gameBoard.placeShip(battleship, 4,4, 'vertical');
+// leonard.gameBoard.placeShip(cruiser, 7,1, 'horizontal');
+// leonard.gameBoard.placeShip(submarine, 1,6, 'horizontal');
+// leonard.gameBoard.placeShip(destroyer, 8,8, 'vertical');
 
-computer.gameBoard.placeShip(carrier2, 1,1, 'vertical');
-computer.gameBoard.placeShip(battleship2, 4,4, 'vertical');
-computer.gameBoard.placeShip(cruiser2, 7,1, 'horizontal');
-computer.gameBoard.placeShip(submarine2, 1,6, 'horizontal');
-computer.gameBoard.placeShip(destroyer2, 8,8, 'vertical');
+function placeAiShips(ships) {
+    for(let i = 0; i < ships.length; i++) {
+        let x = Math.floor(Math.random() * 10 + 1);
+        let y = Math.floor(Math.random() * 10 + 1);
+        let z = Math.floor(Math.random() * 2 + 1);
+
+        if(z === 1)z = 'vertical';
+        else z = 'horizontal';
+
+        if(computer.gameBoard.placeShip(ships[i], x,y, z) === false){
+            i--;
+            console.log('Failed placement');
+        }
+    }
+}
 
 //turn and game over tracker
 let gameover = false;
@@ -53,21 +70,26 @@ function startGame() {
     turn = 'player';
     playerboard.innerHTML = '';
     computerboard.innerHTML = '';
-    playerShots = [];
-    resetAiCoords();
     shotBoard.innerHTML = '';
+    playerShots = [];
+    clearAiShots();
+    placeAiShips(createAiShips());
     renderBoard(leonard.gameBoard, playerboard, false, turnTracker);
     renderBoard(computer.gameBoard, computerboard, true, turnTracker);
 }    
 
 function squareAttacked([i,j]) {
-    console.log(gameover, turn);
+    // console.log(computer.gameBoard.ships);
     if(gameover) return;
     if(turn === 'player') {
         let sameShot = isDuplicateAttacks([i,j]);
         if(sameShot === true) return;
     }
-    computer.gameBoard.receiveAttack([i,j]);
+    if(turn === 'player'){
+        computer.gameBoard.receiveAttack([i,j]);
+    }else {
+        leonard.gameBoard.receiveAttack([i,j]);
+    }
     renderMissedShots([i,j], turn);
     hitMiss([i,j], turn);
     if(computer.gameBoard.allSunk()){
