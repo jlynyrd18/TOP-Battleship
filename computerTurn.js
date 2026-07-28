@@ -13,6 +13,6 @@ export function aiCoords () {
     }
 }
 
-export function resetAiCoords() {
+export function clearAiShots() {
     aiShots = [];
 }
