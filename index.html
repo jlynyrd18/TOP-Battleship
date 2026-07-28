@@ -22,6 +22,26 @@
     </div>
     <br>
     <button id="start">Start Game</button>
+    <div id="playerShips">
+        Place your coordinates for your ships. Example X,Y<br>X is vertical (up and down). Y is horizontal (left to right)
+        <br><br>
+        <form>
+            <label for="carrier">Carrier</label>
+            <input type="text" value="1,1" id="carrier">
+            <br><br>
+            <label for="battleship">Battleships</label>
+            <input type="text" value="4,4" id="battleship">
+            <br><br>
+            <label for="cruiser">Cruiser</label>
+            <input type="text" value="7,1" id="cruiser">
+            <br><br>
+            <label for="submarine">Submarine</label>
+            <input type="text" value="1,6" id="submarine">
+            <br><br>
+            <label for="destroyer">Destroyer</label>
+            <input type="text" value="8,8" id="destroyer">
+        </form>
+    </div>
     <script type="module" src="gameController.js"></script>
 </body>
 </html>
