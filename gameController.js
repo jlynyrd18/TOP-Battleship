@@ -7,6 +7,7 @@ import {hitMiss} from './UI/render.js';
 import {winlose} from './UI/render.js';
 import {aiCoords} from './computerTurn.js';
 import {clearAiShots} from './computerTurn.js';
+import {playerSetup} from './playerSetup.js';
 
 //Player objects
 const leonard = new Player('Leonard', 'human');
@@ -20,6 +21,7 @@ function createPlayerShips() {
     const submarine = new Ship(3);
     const destroyer = new Ship(2);
 
+    return [carrier, battleship, cruiser, submarine, destroyer];
 }
 
 //5 ships for computer board
@@ -32,7 +34,12 @@ function createAiShips() {
     return [carrier2, battleship2, cruiser2, submarine2, destroyer2];
 }
 
+function placePlayerShips() {
+    let ships = createPlayerShips();
+    let coordsOrient = playerSetup();
 
+    console.log(ships, coordsOrient);
+}
 //coords for the ships 
 // leonard.gameBoard.placeShip(carrier, 1,1, 'vertical');
 // leonard.gameBoard.placeShip(battleship, 4,4, 'vertical');
@@ -63,15 +70,18 @@ let playerShots = [];
 
 const start = document.getElementById('start');
 let shotBoard = document.getElementById('shots');
+const turnCounter = document.getElementById('turncounter');
 
 function startGame() {
     //if board already rendered replace board
     gameover = false;
     turn = 'player';
+    turnCounter.innerText = '';
     playerboard.innerHTML = '';
     computerboard.innerHTML = '';
     shotBoard.innerHTML = '';
     playerShots = [];
+    placePlayerShips();
     clearAiShots();
     placeAiShips(createAiShips());
     renderBoard(leonard.gameBoard, playerboard, false, turnTracker);
@@ -83,7 +93,7 @@ function squareAttacked([i,j]) {
     if(gameover) return;
     if(turn === 'player') {
         let sameShot = isDuplicateAttacks([i,j]);
-        if(sameShot === true) return;
+        if(sameShot === true) return false;
     }
     if(turn === 'player'){
         computer.gameBoard.receiveAttack([i,j]);
@@ -117,8 +127,12 @@ function isDuplicateAttacks(x) {
 function turnTracker (x, y) {
     //what the player can and can't do during their turn
     if(turn === 'player') {
-        squareAttacked(x, y);
-        turn = 'computerPlayer';
+        if(squareAttacked(x, y) === false){
+            turn = 'player';
+        }else{
+            turn = 'computerPlayer';
+        }
+        
     }
     //what the player can and can't do not during their turn
     if(turn === 'computerPlayer') {
