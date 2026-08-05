@@ -9,6 +9,6 @@ const submarineCoord = document.getElementById('submarine').value;
 const submarineOrient = document.getElementById('submarineOrientation').value;
 const destroyerCoord = document.getElementById('destroyer').value;
 const destroyerOrient = document.getElementById('destroyerOrientation');
-return [carrierCoord, carrierOrient, battleshipCoord, battleshipOrient, cruiserCoord, cruiserOrient, 
-    submarineCoord, submarineOrient, destroyerCoord, destroyerOrient];
+return [[carrierCoord, carrierOrient], [battleshipCoord, battleshipOrient], [cruiserCoord, cruiserOrient], 
+    [submarineCoord, submarineOrient], [destroyerCoord, destroyerOrient]];
 }
