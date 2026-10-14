@@ -21,12 +21,11 @@
         <div id="shots"></div>
     </div>
     <br>
-    <button id="start">Start Game</button>
     <div id="playerShips">
         <h3>Place your coordinates for your ships. The point you choose will be the starting point for each ship. 
         Example X,Y<br>X is vertical (up and down). Y is horizontal (left to right)
         </h3>
-        <br><br>
+
         <form>
             <label for="carrier">Carrier</label>
             <input type="text" value="1,1" id="carrier">
@@ -63,6 +62,8 @@
                 <option>horizontal</option>
             </select>
         </form>
+        <br>
+        <button id="start">Start Game</button>
     </div>
     <script type="module" src="gameController.js"></script>
 </body>
