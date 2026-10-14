@@ -18,7 +18,7 @@ export default class Gameboard {
             let occupiedSpots = [];
     
             for(let i = 0; i < boat.shipLength; i++) {
-                let newPoint = [x + i, y];
+                let newPoint = [x, y + i];
                 occupiedSpots.push(newPoint);
                 if(this.overLapCheck(newPoint) === false) return false;
             }
@@ -28,7 +28,7 @@ export default class Gameboard {
             let occupiedSpots = [];
     
             for(let i = 0; i < boat.shipLength; i++) {
-                let newPoint = [x, y + i];
+                let newPoint = [x + i, y];
                 occupiedSpots.push(newPoint);
                 if(this.overLapCheck(newPoint) === false) return false;
             }
