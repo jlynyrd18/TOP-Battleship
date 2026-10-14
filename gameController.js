@@ -38,10 +38,16 @@ function placePlayerShips() {
     let ships = createPlayerShips();
     let coordsOrient = playerSetup();
 
-    console.log(ships, coordsOrient);
+    let x = parseInt(coordsOrient[0][0][0]);
+    let y = parseInt(coordsOrient[0][0][2])
+    
+    //place ship works for one ships work on for loop next
+    leonard.gameBoard.placeShip(ships[0], x, y, coordsOrient[0][1]);
+    console.log(coordsOrient);
+    console.log(ships[0],coordsOrient[0], x, y, coordsOrient[0][1]);
 }
 //coords for the ships 
-// leonard.gameBoard.placeShip(carrier, 1,1, 'vertical');
+ //leonard.gameBoard.placeShip(carrier, 1,1, 'vertical');
 // leonard.gameBoard.placeShip(battleship, 4,4, 'vertical');
 // leonard.gameBoard.placeShip(cruiser, 7,1, 'horizontal');
 // leonard.gameBoard.placeShip(submarine, 1,6, 'horizontal');
