@@ -49,12 +49,6 @@ function placePlayerShips() {
     }
     
 }
-//coords for the ships 
- //leonard.gameBoard.placeShip(carrier, 1,1, 'vertical');
-// leonard.gameBoard.placeShip(battleship, 4,4, 'vertical');
-// leonard.gameBoard.placeShip(cruiser, 7,1, 'horizontal');
-// leonard.gameBoard.placeShip(submarine, 1,6, 'horizontal');
-// leonard.gameBoard.placeShip(destroyer, 8,8, 'vertical');
 
 function placeAiShips(ships) {
     for(let i = 0; i < ships.length; i++) {
@@ -90,6 +84,8 @@ function startGame() {
     computerboard.innerHTML = '';
     shotBoard.innerHTML = '';
     playerShots = [];
+    leonard.gameBoard.ships.length = 0;
+    computer.gameBoard.ships.length = 0;
     placePlayerShips();
     clearAiShots();
     placeAiShips(createAiShips());
@@ -102,7 +98,7 @@ function squareAttacked([i,j]) {
     if(gameover) return;
     if(turn === 'player') {
         let sameShot = isDuplicateAttacks([i,j]);
-        if(sameShot === true) return false;
+        if(sameShot === true) turn = 'player';
     }
     if(turn === 'player'){
         computer.gameBoard.receiveAttack([i,j]);
@@ -125,7 +121,6 @@ function isDuplicateAttacks(x) {
     const shotCheck = (element) => element[0] === x[0] && element[1] === x[1];
     if(playerShots.some(shotCheck)) {
         alert('Try a different square');
-        turn = 'player';
         return true;
     }else {
         playerShots.push(x);
