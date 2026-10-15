@@ -9,10 +9,10 @@ export default class Gameboard {
     }
 
     placeShip(boat, x, y, direction) {
-        if(boat.shipLength + x - 1 > 9)return false;
-        if(boat.shipLength + y - 1 > 9)return false;
-        if(boat.shipLength + x - 1 < 0) return false;
-        if(boat.shipLength + y - 1 < 0) return false;
+        if(boat.shipLength + x - 1 > 9)return 'ship length';
+        if(boat.shipLength + y - 1 > 9)return 'ship length';
+        if(boat.shipLength + x - 1 < 0) return 'ship length';
+        if(boat.shipLength + y - 1 < 0) return 'ship length';
         if(direction === 'horizontal') {
             let starting = [x,y];
             let occupiedSpots = [];
@@ -20,7 +20,7 @@ export default class Gameboard {
             for(let i = 0; i < boat.shipLength; i++) {
                 let newPoint = [x, y + i];
                 occupiedSpots.push(newPoint);
-                if(this.overLapCheck(newPoint) === false) return false;
+                if(this.overLapCheck(newPoint) === false) return 'overlap h';
             }
             this.ships.push({ship: boat, position: occupiedSpots, direction: direction});
         }else if(direction === 'vertical') {
@@ -30,7 +30,7 @@ export default class Gameboard {
             for(let i = 0; i < boat.shipLength; i++) {
                 let newPoint = [x + i, y];
                 occupiedSpots.push(newPoint);
-                if(this.overLapCheck(newPoint) === false) return false;
+                if(this.overLapCheck(newPoint) === false) return 'overlap v';
             }
             this.ships.push({ship: boat, position: occupiedSpots, direction: direction});
         }
@@ -43,6 +43,7 @@ export default class Gameboard {
                 if(boardCords[0] === array[0] && boardCords[1] === array[1]) return false;
             }
         }
+        return true;
     }
 
     receiveAttack(attack) {
